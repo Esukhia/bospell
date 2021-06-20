@@ -1,6 +1,6 @@
 from typing import List
 
-from symspellpy import SymSpell, Verbosity
+from symspellpy import SymSpell
 
 from ..config import Config
 from . import CandidateModelBase
@@ -14,13 +14,9 @@ class SymSpellModel(CandidateModelBase):
 
     def __init__(
         self,
-        verbosity: Verbosity = Verbosity.CLOSEST,
-        max_edit_distance: int = 2,
-        config: Config = Config(),
+        config: Config,
     ):
         self.sym_spell = SymSpell()
-        self.verbosity = verbosity
-        self.max_edit_distance = max_edit_distance
         self.config = config
         self.load_dictionary()
 
@@ -33,7 +29,7 @@ class SymSpellModel(CandidateModelBase):
 
     def get_candidates(self, word: str) -> List[str]:
         suggestions = self.sym_spell.lookup(
-            word, self.verbosity, max_edit_distance=self.max_edit_distance
+            word, self.config.verbosity, max_edit_distance=self.config.max_edit_distance
         )
         suggested_words = []
         for i, suggestion in enumerate(suggestions):
