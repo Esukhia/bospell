@@ -3,6 +3,13 @@ from abc import ABC, abstractmethod
 from botok import WordTokenizer
 
 
+class TokenBase:
+    def __init__(self, form, pos, lemma):
+        self.form = form
+        self.pos = pos
+        self.lemma = lemma
+
+
 class TokenizerBase(ABC):
     """All tokenizer should be subclass of TokenizerBase."""
 
