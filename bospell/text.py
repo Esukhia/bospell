@@ -26,14 +26,30 @@ class Text:
         self.spellcheck: BoSpell = BoSpell(config=config)
         self.content: str = content
         self.tokens: List = self.tokenizer.tokenize(content)
-        self.suggestions = []
+        self._suggestions = {}
+        self._corrected = ""
 
-    def correct(self):
-        if self.suggestions:
-            pass
+    @property
+    def suggestions(self):
+        if self._suggestions:
+            return self._suggestions
 
-        for token in self.tokens:
+        for idx, token in enumerate(self.tokens):
             if self.spellcheck.is_error(token):
                 suggestions = self.spellcheck.candidates(token.text, 5)
                 span = Span(start=token.start, end=token.start + token.len)
-                self.suggestions.append(Suggestions(candidates=suggestions, span=span))
+                self._suggestions[idx] = Suggestions(candidates=suggestions, span=span)
+
+        return self._suggestions
+
+    @property
+    def corrected(self):
+        if self._corrected:
+            return self._corrected
+
+        for idx, token in enumerate(self.tokens):
+            if idx in self.suggestions:
+                self._corrected += self.suggestions[idx].candidates[0]
+            else:
+                self._corrected += token.text
+        return self._corrected
