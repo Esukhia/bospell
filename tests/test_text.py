@@ -1,7 +1,7 @@
-from bospell.text import Text
+from bospell import Text
 
 
 def test_text_correct():
-    text = Text("བཀྲ་ཤིས་བདེ་ལེག།")
-    text.correct()
-    assert text.suggestions
+    text = Text("བོད་པའི་བུ་བཀྲ་ཤིད་")
+    corrected = text.corrected
+    assert corrected == "བོད་པའི་བུ་བཀྲ་ཤིས"
