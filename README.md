@@ -1,5 +1,4 @@
 # Bospell
-Spell checking toolkit for Tibetan (boyig)
 [![PyPI version](https://badge.fury.io/py/bospell.svg)](https://badge.fury.io/py/bospell)
 [![Test](https://github.com/Esukhia/bospell/actions/workflows/test.yml/badge.svg)](https://github.com/Esukhia/bospell/actions/workflows/test.yml)
 [![Test Coverage](https://github.com/Esukhia/bospell/actions/workflows/test-coverage.yml/badge.svg)](https://github.com/Esukhia/bospell/actions/workflows/test-coverage.yml)
