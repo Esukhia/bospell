@@ -33,15 +33,15 @@ After installation, using `bospell` should be fairly straight forward:
 ```
 
 ## Development
-```
-$ git clone https://github.com/Esukhia/bospell.git
-$ cd bospell
-$ pip install -r requirements.txt
-$ pre-commit install
-$ pip install -e .
+```bash
+git clone https://github.com/Esukhia/bospell.git
+cd bospell
+pip install -r requirements.txt
+pre-commit install
+pip install -e .
 ```
 
 ## Testing
 ```
-$ pytest tests
+pytest tests
 ```
