@@ -31,6 +31,7 @@ After installation, using `bospell` should be fairly straight forward:
 >>> text.suggestions
 {3: Suggestions(candidates=['བཀྲ་ཤིས', 'བཀྲ་ཤིས་པ', 'བཀྲ་ཤིས་མ'], span=Span(start=11, end=19))}
 ```
+In suggestions, `key` is the token index. Tokens can be accessed through `text.tokens` attribute.
 
 ## Development
 ```bash
