@@ -1,7 +1,8 @@
 from pathlib import Path
 
-from botok import WordTokenizer
 from symspellpy.symspellpy import Verbosity
+
+from .utils import mkdir
 
 
 class Config:
@@ -9,6 +10,7 @@ class Config:
 
 
 class DefaultConfig(Config):
+    base_path = mkdir(Path.home() / ".bospell")
     tokenizer_class = "bospell.tokenizers.BotokWordTokenizer"
 
     # BoSpell components
