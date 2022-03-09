@@ -36,7 +36,11 @@ setup(
     },
     package_dir={"bospell": "bospell"},
     include_package_data=True,
-    install_requires=["botok>=0.8.6, <1.0", "symspellpy>=6.7.0, <7.0"],
+    install_requires=[
+        "botok>=0.8.6, <1.0",
+        "symspellpy>=6.7.0, <7.0",
+        "nltk>=3.7, <4.0",
+    ],
     python_requires=">=3.8",
     tests_require=["pytest"],
 )

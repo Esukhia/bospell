@@ -2,3 +2,5 @@ pytest==6.2.4
 pre-commit
 covdefaults
 coverage
+isort
+black
