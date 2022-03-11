@@ -1,9 +1,10 @@
 import logging
+import math
 import pickle
 from pathlib import Path
 
-from botok import WordTokenizer
-from nltk.lm import MLE
+from nltk.lm import KneserNeyInterpolated
+from nltk.util import ngrams as get_ngrams
 
 from bospell.config import DefaultConfig
 from bospell.utils import mkdir
@@ -13,15 +14,10 @@ from .dataset import NGramDataset
 LM_PATH = mkdir(DefaultConfig.base_path / "lm")
 
 
-def tokenize(text):
-    wt = WordTokenizer()
-    return [token.text for token in wt.tokenize(text)]
-
-
 class NGramLM:
     def __init__(self, n: int = 3):
         self.n = n
-        self.model = MLE(n)
+        self.model = KneserNeyInterpolated(n)
         self.model_path = LM_PATH / f"{n}_gram.model"
 
     def train(self, dataset: NGramDataset, save=True):
@@ -37,9 +33,18 @@ class NGramLM:
             else:
                 logging.exception(f"ngram model doesn't exits at: {path}")
         self.model = pickle.load(self.model_path.open("rb"))
+        # TODO: set self.n from self.model
+        self.n = self.model.order
 
     def evaluate_sentence(self, sentence: str):
-        tokens = tokenize(sentence)
+        """check the prob. of `sentence`"""
+        tokens = NGramDataset.preprocess_sentence(sentence, self.n)
+        ngrams = list(get_ngrams(tokens, self.n))
+        total_logscore = 0
+        for ngram in ngrams:
+            cur_logscore = self.model.logscore(ngram[-1], ngram[:-1])
+            total_logscore += cur_logscore
+        return math.exp(total_logscore)
 
     def predict_next(self):
         pass

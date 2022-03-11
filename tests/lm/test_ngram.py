@@ -34,3 +34,12 @@ def test_load_model():
     ngram_lm.load_model()
 
     assert ngram_lm.model.vocab
+
+
+def test_evaluate_sentence():
+    ngram_lm = NGramLM()
+    ngram_lm.load_model()
+
+    prob = ngram_lm.evaluate_sentence("བྱང་ཆུབ་འདི་བརྙེས་དེ་ལ་ཕྱག་འཚལ་ལོ། །")
+
+    assert prob
