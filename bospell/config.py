@@ -2,7 +2,8 @@ from pathlib import Path
 
 from symspellpy.symspellpy import Verbosity
 
-from .utils import mkdir
+from bospell.utils import mkdir
+import json
 
 
 class Config:
@@ -26,3 +27,19 @@ class DefaultConfig(Config):
 
     # Error Model
     error_model_class = "bospell.error.NonWordErrorModel"
+    
+    
+class ParticlesConfig(Config):
+    base_path = mkdir(Path.home() / ".bospell")
+    
+    
+    # particle
+    particle_path = (
+        Path(__file__).parent / "resources" / "particles.json"
+    )
+    particle_json = json.loads((particle_path).read_text(encoding='utf-8'))
+    
+    particle_types = particle_json['particle_types']
+    jes_jug_particles = particle_json['jes_jug_particles']
+    yang_jug_particles = particle_json['yang_jug_particles']
+    tha_may_particles = particle_json['tha_may_particles']
